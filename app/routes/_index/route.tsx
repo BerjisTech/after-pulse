@@ -15,40 +15,43 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return { showForm: Boolean(login) };
 };
 
-export default function App() {
+export default function LandingPage() {
   const { showForm } = useLoaderData<typeof loader>();
 
   return (
     <div className={styles.index}>
       <div className={styles.content}>
-        <h1 className={styles.heading}>A short heading about [your app]</h1>
+        <div className={styles.badge}>AI-Powered</div>
+        <h1 className={styles.heading}>
+          AfterPulse
+        </h1>
         <p className={styles.text}>
-          A tagline about [your app] that describes your value proposition.
+          Increase your Average Order Value with smart, AI-powered post-purchase
+          upsells. Show the right offer to the right customer at the right time.
         </p>
         {showForm && (
           <Form className={styles.form} method="post" action="/auth/login">
             <label className={styles.label}>
               <span>Shop domain</span>
-              <input className={styles.input} type="text" name="shop" />
-              <span>e.g: my-shop-domain.myshopify.com</span>
+              <input className={styles.input} type="text" name="shop" placeholder="your-store.myshopify.com" />
             </label>
             <button className={styles.button} type="submit">
-              Log in
+              Get Started
             </button>
           </Form>
         )}
         <ul className={styles.list}>
           <li>
-            <strong>Product feature</strong>. Some detail about your feature and
-            its benefit to your customer.
+            <strong>🚀 Smart Upsells</strong>. AI-generated offers based on customer
+            behavior and purchase patterns.
           </li>
           <li>
-            <strong>Product feature</strong>. Some detail about your feature and
-            its benefit to your customer.
+            <strong>📈 Increase AOV</strong>. Show personalized post-purchase offers
+            that convert at 2-3x industry average.
           </li>
           <li>
-            <strong>Product feature</strong>. Some detail about your feature and
-            its benefit to your customer.
+            <strong>⚡ Zero Friction</strong>. One-click upsells on Thank You and
+            Order Status pages — no checkout interruption.
           </li>
         </ul>
       </div>

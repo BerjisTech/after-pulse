@@ -48,3 +48,5 @@ Start by exploring the current project structure and giving me a complete develo
 Be extremely detailed, production-ready, and follow latest Shopify best practices (2026). Think like a senior full-stack Shopify developer who has built many successful apps.
 
 Begin now.
+
+Run the shopify app dev using `PORT=6300 shopify app dev --tunnel-url https://after-pulse.berjis.tech:6300`

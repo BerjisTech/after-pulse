@@ -1,8 +1,9 @@
+# AfterPulse — AI-Powered Post-Purchase Upsell App
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "5ef7968e857f71492169fffab4e38a81"
-name = "after-pulse"
-application_url = "https://example.com"
+name = "AfterPulse"
+application_url = "https://after-pulse.berjis.tech"
 embedded = true
 
 [build]
@@ -20,33 +21,33 @@ api_version = "2026-07"
   topics = [ "app/scopes_update" ]
   uri = "/webhooks/app/scopes_update"
 
+  [[webhooks.subscriptions]]
+  topics = [ "orders/create" ]
+  uri = "/webhooks/orders/create"
+
 [access_scopes]
-# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_metaobject_definitions,write_metaobjects,write_products"
+scopes = "read_products,write_products,read_orders,write_order_edits,read_customers,write_metaobject_definitions,write_metaobjects"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [ "https://after-pulse.berjis.tech/api/auth" ]
 
-[product.metafields.app.demo_info]
-type = "single_line_text_field"
-name = "Demo Source Info"
-description = "Tracks products created by the Shopify app template for development"
+# ─── AfterPulse Metaobjects ───
 
-  [product.metafields.app.demo_info.access]
+[metaobjects.app.afterpulse_settings]
+name = "AfterPulse Settings"
+description = "Per-shop settings for the AfterPulse upsell app"
+
+  [metaobjects.app.afterpulse_settings.access]
   admin = "merchant_read_write"
 
-[metaobjects.app.example]
-name = "Example"
-description = "An example metaobject definition created by this template"
-
-  [metaobjects.app.example.access]
-  admin = "merchant_read_write"
-
-[metaobjects.app.example.fields.title]
-name = "Title"
+[metaobjects.app.afterpulse_settings.fields.brand_color]
+name = "Brand Color"
 type = "single_line_text_field"
-required = true
 
-[metaobjects.app.example.fields.description]
-name = "Description"
-type = "multi_line_text_field"
+[metaobjects.app.afterpulse_settings.fields.accent_color]
+name = "Accent Color"
+type = "single_line_text_field"
+
+[metaobjects.app.afterpulse_settings.fields.enable_ai]
+name = "Enable AI"
+type = "boolean"

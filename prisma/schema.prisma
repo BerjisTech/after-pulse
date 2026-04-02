@@ -1,34 +1,121 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// AfterPulse - AI-Powered Post-Purchase Upsell App
+// Prisma Schema
 
 generator client {
   provider = "prisma-client-js"
 }
 
-// Note that some adapters may set a maximum length for the String type by default, please ensure your strings are long
-// enough when changing adapters.
-// See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
   provider = "sqlite"
   url      = "file:dev.sqlite"
 }
 
+// ─── Shopify Session (required by @shopify/shopify-app-session-storage-prisma) ───
+
 model Session {
-  id            String    @id
-  shop          String
-  state         String
-  isOnline      Boolean   @default(false)
-  scope         String?
-  expires       DateTime?
-  accessToken   String
-  userId        BigInt?
-  firstName     String?
-  lastName      String?
-  email         String?
-  accountOwner  Boolean   @default(false)
-  locale        String?
-  collaborator  Boolean?  @default(false)
-  emailVerified Boolean?  @default(false)
+  id                  String    @id
+  shop                String
+  state               String
+  isOnline            Boolean   @default(false)
+  scope               String?
+  expires             DateTime?
+  accessToken         String
+  userId              BigInt?
+  firstName           String?
+  lastName            String?
+  email               String?
+  accountOwner        Boolean   @default(false)
+  locale              String?
+  collaborator        Boolean?  @default(false)
+  emailVerified       Boolean?  @default(false)
   refreshToken        String?
   refreshTokenExpires DateTime?
+}
+
+// ─── AfterPulse: Shop Settings ───
+
+model Shop {
+  id                 String   @id @default(cuid())
+  shopDomain         String   @unique
+  aiProvider         String   @default("openai") // "openai" | "claude"
+  aiApiKey           String? // Encrypted at rest
+  enableAi           Boolean  @default(true)
+  enablePostPurchase Boolean  @default(true)
+  enableThankYou     Boolean  @default(true)
+  brandColor         String   @default("#0D9488") // Deep teal
+  accentColor        String   @default("#4F46E5") // Indigo
+  currency           String   @default("USD")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  offers    Offer[]
+  analytics AnalyticsEvent[]
+}
+
+// ─── AfterPulse: Upsell Offers ───
+
+model Offer {
+  id       String @id @default(cuid())
+  shopId   String
+  shop     Shop   @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  name     String
+  type     String // "single" | "bundle" | "discount"
+  status   String @default("draft") // "draft" | "active" | "paused" | "archived"
+  priority Int    @default(0)
+
+  // Products (JSON-serialized arrays of Shopify GIDs)
+  productIds    String // JSON array: ["gid://shopify/Product/123", ...]
+  discountType  String? // "percentage" | "fixed" | "free_shipping"
+  discountValue Float?
+
+  // Targeting rules (JSON-serialized)
+  targetProducts  String? // JSON: product/collection GIDs that trigger this offer
+  targetTags      String? // JSON: customer tags
+  targetMinOrder  Float? // Minimum order value
+  targetMaxOrder  Float? // Maximum order value
+  targetCountries String? // JSON: country codes ["US", "CA", ...]
+
+  // Display configuration
+  headline    String  @default("You might also like...")
+  description String?
+  imageUrl    String?
+  placement   String  @default("thank_you") // "post_purchase" | "thank_you" | "order_status"
+
+  // AI metadata
+  aiGenerated Boolean @default(false)
+  aiPrompt    String?
+
+  // Denormalized metrics (updated periodically from AnalyticsEvent)
+  impressions Int   @default(0)
+  clicks      Int   @default(0)
+  conversions Int   @default(0)
+  revenue     Float @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  analytics AnalyticsEvent[]
+
+  @@index([shopId, status])
+  @@index([shopId, placement])
+}
+
+// ─── AfterPulse: Analytics Events ───
+
+model AnalyticsEvent {
+  id      String  @id @default(cuid())
+  shopId  String
+  shop    Shop    @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  offerId String?
+  offer   Offer?  @relation(fields: [offerId], references: [id], onDelete: SetNull)
+
+  eventType String // "impression" | "click" | "conversion" | "dismiss"
+  orderId   String? // Shopify order GID
+  revenue   Float? // Revenue attributed to this event
+  metadata  String? // JSON: extra event data
+
+  createdAt DateTime @default(now())
+
+  @@index([shopId, eventType, createdAt])
+  @@index([offerId, eventType])
 }

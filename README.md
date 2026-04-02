@@ -25,7 +25,7 @@ shopify app init --template=https://github.com/Shopify/shopify-app-template-reac
 ### Local Development
 
 ```shell
-shopify app dev
+PORT=6300 shopify app dev --tunnel-url https://after-pulse.berjis.tech:6300
 ```
 
 Press P to open the URL to your app. Once you click install, you can start development.

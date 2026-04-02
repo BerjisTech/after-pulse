@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "build": "react-router build",
-    "dev": "shopify app dev",
+    "dev": "PORT=6300 shopify app dev --tunnel-url https://after-pulse.berjis.tech:6300",
+    "dev:local": "PORT=6300 shopify app dev",
     "config:link": "shopify app config link",
     "generate": "shopify app generate",
     "deploy": "shopify app deploy",

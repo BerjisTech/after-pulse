@@ -1,0 +1,358 @@
+/* ─── Offers Page Styles ─── */
+
+.offers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.offers-filters {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.offers-filters__search {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* ─── Offers Table ─── */
+.offers-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--p-color-bg-surface);
+  border: 1px solid var(--p-color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.offers-table th {
+  text-align: left;
+  padding: 0.875rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--p-color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--p-color-bg-surface-secondary);
+  border-bottom: 1px solid var(--p-color-border);
+}
+
+.offers-table td {
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  color: var(--p-color-text);
+  border-bottom: 1px solid var(--p-color-border-subdued);
+}
+
+.offers-table tr:last-child td {
+  border-bottom: none;
+}
+
+.offers-table tr:hover td {
+  background: var(--p-color-bg-surface-hover);
+}
+
+.offers-table__name {
+  font-weight: 600;
+  color: var(--p-color-text);
+}
+
+.offers-table__name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.offers-table__name a:hover {
+  color: #0D9488;
+}
+
+.offers-table__type {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--p-color-text-secondary);
+}
+
+.offers-table__metrics {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+}
+
+.offers-table__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.offers-table__metric-value {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.offers-table__metric-label {
+  color: var(--p-color-text-secondary);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.offers-table__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ─── Offer Form ─── */
+.offer-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.offer-form__section {
+  background: var(--p-color-bg-surface);
+  border: 1px solid var(--p-color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.offer-form__section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--p-color-text);
+}
+
+.offer-form__field-group {
+  display: grid;
+  gap: 1rem;
+}
+
+.offer-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .offer-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Offer Type Selector ─── */
+.offer-types {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .offer-types {
+    grid-template-columns: 1fr;
+  }
+}
+
+.offer-type-card {
+  background: var(--p-color-bg-surface);
+  border: 2px solid var(--p-color-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.offer-type-card:hover {
+  border-color: #0D9488;
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.12);
+}
+
+.offer-type-card--selected {
+  border-color: #0D9488;
+  background: rgba(13, 148, 136, 0.04);
+  box-shadow: 0 0 0 1px #0D9488;
+}
+
+.offer-type-card__icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.offer-type-card__title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--p-color-text);
+  margin-bottom: 0.25rem;
+}
+
+.offer-type-card__description {
+  font-size: 0.75rem;
+  color: var(--p-color-text-secondary);
+}
+
+/* ─── Product Selection ─── */
+.product-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--p-color-bg-surface-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--p-color-border-subdued);
+}
+
+.product-item__image {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--p-color-bg-surface);
+}
+
+.product-item__info {
+  flex: 1;
+}
+
+.product-item__title {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.product-item__price {
+  font-size: 0.8rem;
+  color: var(--p-color-text-secondary);
+}
+
+.product-item__remove {
+  cursor: pointer;
+  color: var(--p-color-text-secondary);
+  transition: color 0.15s;
+}
+
+.product-item__remove:hover {
+  color: #ef4444;
+}
+
+/* ─── Rule Builder ─── */
+.rule-builder {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.rule-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: var(--p-color-bg-surface-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--p-color-border-subdued);
+}
+
+.rule-row__connector {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #0D9488;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  background: rgba(13, 148, 136, 0.08);
+  border-radius: 4px;
+}
+
+/* ─── Offer Preview ─── */
+.offer-preview {
+  background: var(--p-color-bg-surface);
+  border: 1px solid var(--p-color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 400px;
+}
+
+.offer-preview__badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: #0D9488;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.offer-preview__headline {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--p-color-text);
+  margin-bottom: 0.5rem;
+}
+
+.offer-preview__description {
+  font-size: 0.875rem;
+  color: var(--p-color-text-secondary);
+  margin-bottom: 1rem;
+}
+
+.offer-preview__product {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--p-color-bg-surface-secondary);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.offer-preview__product-image {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  background: var(--p-color-bg-surface);
+  object-fit: cover;
+}
+
+.offer-preview__product-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.offer-preview__product-price {
+  font-size: 0.8rem;
+  color: var(--p-color-text-secondary);
+}
+
+.offer-preview__product-price--original {
+  text-decoration: line-through;
+  margin-right: 0.5rem;
+}
+
+.offer-preview__product-price--discounted {
+  color: #059669;
+  font-weight: 600;
+}
+
+.offer-preview__cta {
+  width: 100%;
+  padding: 0.75rem;
+  background: #0D9488;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.offer-preview__cta:hover {
+  background: #0f766e;
+}
