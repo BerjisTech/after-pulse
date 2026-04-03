@@ -206,22 +206,21 @@ export default function SettingsPage() {
               value={aiProvider}
               onChange={(e: any) => setAiProvider(e.currentTarget.value)}
             >
-              {Object.entries(AI_PROVIDER_LABELS).map(([value, label]) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
+              <s-option value="openai">OpenAI (GPT-4)</s-option>
+              <s-option value="claude">Anthropic (Claude)</s-option>
+              <s-option value="gemini">Google (Gemini)</s-option>
             </s-select>
             <s-text-field
               name="aiApiKey"
               label="API Key"
-              type="password"
               value={aiApiKey}
               onChange={(e: any) => setAiApiKey(e.currentTarget.value)}
               details={
                 aiProvider === "openai"
                   ? "Enter your OpenAI API key (starts with sk-)"
-                  : "Enter your Anthropic API key (starts with sk-ant-)"
+                  : aiProvider === "claude"
+                    ? "Enter your Anthropic API key (starts with sk-ant-)"
+                    : "Enter your Google AI API key"
               }
             />
             <s-button
@@ -233,6 +232,99 @@ export default function SettingsPage() {
             </s-button>
           </s-stack>
         </fetcher.Form>
+      </s-section>
+
+      {/* API Key Guide */}
+      <s-section heading="Where to Get API Keys">
+        <s-stack direction="block" gap="base">
+          <div className={styles["settings-section"]}>
+            <div className={styles["settings-section__title"]}>🤖 OpenAI (GPT-4)</div>
+            <s-stack direction="block" gap="tight">
+              <s-paragraph>
+                OpenAI powers intelligent product recommendations using GPT-4.
+              </s-paragraph>
+              <s-ordered-list>
+                <s-list-item>
+                  Go to{" "}
+                  <s-link href="https://platform.openai.com/signup" target="_blank">
+                    platform.openai.com
+                  </s-link>
+                </s-list-item>
+                <s-list-item>Sign up or log in to your account</s-list-item>
+                <s-list-item>
+                  Navigate to{" "}
+                  <s-link href="https://platform.openai.com/api-keys" target="_blank">
+                    API Keys
+                  </s-link>
+                </s-list-item>
+                <s-list-item>Click "Create new secret key" and copy it</s-list-item>
+                <s-list-item>Paste it above in the API Key field</s-list-item>
+              </s-ordered-list>
+              <s-paragraph>
+                <s-text appearance="subdued" size="small">
+                  Typical cost: ~$0.01–0.05 per AI suggestion generation
+                </s-text>
+              </s-paragraph>
+            </s-stack>
+          </div>
+
+          <div className={styles["settings-section"]}>
+            <div className={styles["settings-section__title"]}>🧠 Anthropic (Claude)</div>
+            <s-stack direction="block" gap="tight">
+              <s-paragraph>
+                Claude excels at nuanced, context-aware product recommendations.
+              </s-paragraph>
+              <s-ordered-list>
+                <s-list-item>
+                  Go to{" "}
+                  <s-link href="https://console.anthropic.com/" target="_blank">
+                    console.anthropic.com
+                  </s-link>
+                </s-list-item>
+                <s-list-item>Sign up or log in to your account</s-list-item>
+                <s-list-item>
+                  Navigate to{" "}
+                  <s-link href="https://console.anthropic.com/settings/keys" target="_blank">
+                    API Keys
+                  </s-link>
+                </s-list-item>
+                <s-list-item>Click "Create Key" and copy it</s-list-item>
+                <s-list-item>Paste it above in the API Key field</s-list-item>
+              </s-ordered-list>
+              <s-paragraph>
+                <s-text appearance="subdued" size="small">
+                  Typical cost: ~$0.01–0.04 per AI suggestion generation
+                </s-text>
+              </s-paragraph>
+            </s-stack>
+          </div>
+
+          <div className={styles["settings-section"]}>
+            <div className={styles["settings-section__title"]}>✨ Google (Gemini)</div>
+            <s-stack direction="block" gap="tight">
+              <s-paragraph>
+                Gemini 2.0 Flash offers fast, cost-effective AI recommendations.
+              </s-paragraph>
+              <s-ordered-list>
+                <s-list-item>
+                  Go to{" "}
+                  <s-link href="https://aistudio.google.com/apikey" target="_blank">
+                    Google AI Studio
+                  </s-link>
+                </s-list-item>
+                <s-list-item>Sign in with your Google account</s-list-item>
+                <s-list-item>Click "Create API key"</s-list-item>
+                <s-list-item>Copy the generated key</s-list-item>
+                <s-list-item>Paste it above in the API Key field</s-list-item>
+              </s-ordered-list>
+              <s-paragraph>
+                <s-text appearance="subdued" size="small">
+                  Typical cost: Free tier available, ~$0.001 per suggestion after
+                </s-text>
+              </s-paragraph>
+            </s-stack>
+          </div>
+        </s-stack>
       </s-section>
 
       {/* Styling */}
@@ -300,18 +392,28 @@ export default function SettingsPage() {
       </s-section>
 
       <s-section slot="aside" heading="Need Help?">
-        <s-unordered-list>
-          <s-list-item>
-            <s-link href="https://shopify.dev/docs/apps" target="_blank">
-              Documentation
-            </s-link>
-          </s-list-item>
-          <s-list-item>
-            <s-link href="mailto:support@berjisapps.com">
-              Contact Support
-            </s-link>
-          </s-list-item>
-        </s-unordered-list>
+        <s-stack direction="block" gap="base">
+          <s-paragraph>
+            <s-text appearance="subdued">
+              Having trouble setting up AI or configuring offers? We're here to help.
+            </s-text>
+          </s-paragraph>
+          <s-button href="mailto:support@berjisapps.com" variant="primary">
+            📧 Contact Support
+          </s-button>
+          <s-unordered-list>
+            <s-list-item>
+              <s-link href="https://shopify.dev/docs/apps" target="_blank">
+                Shopify App Documentation
+              </s-link>
+            </s-list-item>
+            <s-list-item>
+              <s-link href="https://shopify.dev/docs/api/checkout-extensions" target="_blank">
+                Checkout Extensions Guide
+              </s-link>
+            </s-list-item>
+          </s-unordered-list>
+        </s-stack>
       </s-section>
     </s-page>
   );

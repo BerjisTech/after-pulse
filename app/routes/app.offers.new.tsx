@@ -271,12 +271,10 @@ export default function NewOfferPage() {
               value={discountType}
               onChange={(e: any) => setDiscountType(e.currentTarget.value)}
             >
-              <option value="">No discount</option>
-              {Object.entries(DISCOUNT_TYPE_LABELS).map(([value, label]) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
+              <s-option value="">No discount</s-option>
+              <s-option value="percentage">Percentage Off</s-option>
+              <s-option value="fixed">Fixed Amount Off</s-option>
+              <s-option value="free_shipping">Free Shipping</s-option>
             </s-select>
             {discountType && discountType !== "free_shipping" && (
               <s-text-field
@@ -299,11 +297,9 @@ export default function NewOfferPage() {
             value={placement}
             onChange={(e: any) => setPlacement(e.currentTarget.value)}
           >
-            {Object.entries(PLACEMENT_LABELS).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
+            <s-option value="thank_you">Thank You Page</s-option>
+            <s-option value="order_status">Order Status Page</s-option>
+            <s-option value="post_purchase">Post-Purchase (Shopify Plus)</s-option>
           </s-select>
         </s-section>
 

@@ -6,7 +6,7 @@ export type OfferType = "single" | "bundle" | "discount";
 export type OfferStatus = "draft" | "active" | "paused" | "archived";
 export type DiscountType = "percentage" | "fixed" | "free_shipping";
 export type Placement = "post_purchase" | "thank_you" | "order_status";
-export type AiProvider = "openai" | "claude";
+export type AiProvider = "openai" | "claude" | "gemini";
 export type EventType = "impression" | "click" | "conversion" | "dismiss";
 
 // ─── Serialized Offer (from Prisma, with JSON fields parsed) ───

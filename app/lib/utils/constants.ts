@@ -92,11 +92,13 @@ export const DISCOUNT_TYPE_LABELS: Record<string, string> = {
 export const AI_PROVIDERS = {
   OPENAI: "openai",
   CLAUDE: "claude",
+  GEMINI: "gemini",
 } as const;
 
 export const AI_PROVIDER_LABELS: Record<string, string> = {
   openai: "OpenAI (GPT-4)",
   claude: "Anthropic (Claude)",
+  gemini: "Google (Gemini)",
 };
 
 // ─── Analytics Event Types ───
